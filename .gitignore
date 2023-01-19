@@ -10,6 +10,8 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+UserSettings/Layouts/default-2022.dwlt
+
 # Current layout or smth like that
 /UserSettings/Layouts/default-2022.dwlt
 
@@ -60,4 +62,3 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
-
