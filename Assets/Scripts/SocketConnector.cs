@@ -14,6 +14,7 @@ public class SocketConnector
        
         socketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnect);
         socketManager.Socket.On(SocketIOEventTypes.Disconnect, OnDisconnect);
+        socketManager.Socket.On<string>("message", OnReceiveMessage);
     }
 
     public void Open()
@@ -34,13 +35,24 @@ public class SocketConnector
         socketManager.Close();
     }
 
-    public void OnConnect(ConnectResponse response)
+    public void Emit(string message)
+    {
+        Debug.Log($"SocketConnector.Emit '{message}'");
+        socketManager.Socket.Emit("message", message);
+    }
+
+    private void OnConnect(ConnectResponse response)
     {
         Debug.Log($"SocketConnector.OnConnected with response socket id: {response.sid}");
     }
     
-    public void OnDisconnect()
+    private void OnDisconnect()
     {
         Debug.Log($"SocketConnector.OnDisconnected");
+    }
+
+    private void OnReceiveMessage(string message)
+    {
+        Debug.Log($"SocketConnector.OnReceiveMessage '{message}'");
     }
 }

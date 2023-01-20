@@ -37,4 +37,14 @@ public class SocketDebugger : MonoBehaviour
         
         socketConnector.Close();
     }
+    
+    public void Emit(string message)
+    {
+        if (socketConnector == null)
+        {
+            return;
+        }
+        
+        socketConnector.Emit(message);
+    }
 }
