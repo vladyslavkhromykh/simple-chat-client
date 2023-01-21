@@ -2,16 +2,26 @@ using System;
 using UnityEngine;
 using BestHTTP.SocketIO3;
 using BestHTTP.SocketIO3.Events;
+using VContainer;
 
 public class SocketConnector
 {
     private SocketManager socketManager;
+    private IMessageReceiver MessageReceiver;
 
-    public SocketConnector(string uri, bool autoConnect = false)
+    // Somehow this is now working
+    [Inject]
+    private void Construct(IMessageReceiver messageReceiver)
     {
-        socketManager = new SocketManager(new Uri(uri), new SocketOptions{AutoConnect = autoConnect});
-        Debug.Log($"Initialized socket connector with uri {uri}");
-       
+        Debug.LogError("Construct with"+messageReceiver);
+        MessageReceiver = messageReceiver;
+    }
+
+
+    public SocketConnector(string uri)
+    {
+        socketManager = new SocketManager(new Uri(uri));
+
         socketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnect);
         socketManager.Socket.On(SocketIOEventTypes.Disconnect, OnDisconnect);
         socketManager.Socket.On<string>("message", OnReceiveMessage);
@@ -53,6 +63,7 @@ public class SocketConnector
 
     private void OnReceiveMessage(string message)
     {
-        Debug.Log($"SocketConnector.OnReceiveMessage '{message}'");
+        Debug.Log(message);
+        //MessageReceiver.ReceiveMessage(message);
     }
 }
