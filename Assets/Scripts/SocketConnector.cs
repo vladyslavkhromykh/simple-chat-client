@@ -7,16 +7,7 @@ using VContainer;
 public class SocketConnector
 {
     private SocketManager socketManager;
-    private IMessageReceiver MessageReceiver;
-
-    // Somehow this is now working
-    [Inject]
-    private void Construct(IMessageReceiver messageReceiver)
-    {
-        Debug.LogError("Construct with"+messageReceiver);
-        MessageReceiver = messageReceiver;
-    }
-
+    public Action<string> OnMessageReceived;
 
     public SocketConnector(string uri)
     {
@@ -24,7 +15,7 @@ public class SocketConnector
 
         socketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnect);
         socketManager.Socket.On(SocketIOEventTypes.Disconnect, OnDisconnect);
-        socketManager.Socket.On<string>("message", OnReceiveMessage);
+        socketManager.Socket.On<string>("message", OnMessage);
     }
 
     public void Open()
@@ -38,19 +29,7 @@ public class SocketConnector
         Debug.Log($"SocketConnector.Disconnect");
         socketManager.Socket.Disconnect();
     }
-
-    public void Close()
-    {
-        Debug.Log($"SocketConnector.Close");
-        socketManager.Close();
-    }
-
-    public void Emit(string message)
-    {
-        Debug.Log($"SocketConnector.Emit '{message}'");
-        socketManager.Socket.Emit("message", message);
-    }
-
+    
     private void OnConnect(ConnectResponse response)
     {
         Debug.Log($"SocketConnector.OnConnected with response socket id: {response.sid}");
@@ -61,9 +40,19 @@ public class SocketConnector
         Debug.Log($"SocketConnector.OnDisconnected");
     }
 
-    private void OnReceiveMessage(string message)
+    public void Close()
     {
-        Debug.Log(message);
-        //MessageReceiver.ReceiveMessage(message);
+        Debug.Log($"SocketConnector.Close");
+        socketManager.Close();
+    }
+
+    public void Emit(string message)
+    {
+        socketManager.Socket.Emit("message", message);
+    }
+    
+    private void OnMessage(string message)
+    {
+        OnMessageReceived?.Invoke(message);
     }
 }
