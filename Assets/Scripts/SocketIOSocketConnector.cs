@@ -8,10 +8,10 @@ public class SocketIOSocketConnector : ISocketConnector
     public event Action<string> OnMessageReceived;
     private SocketManager socketManager;
 
-    public SocketIOSocketConnector(string uri)
+    public SocketIOSocketConnector(ConnectionSettings connectionSettings)
     {
-        socketManager = new SocketManager(new Uri(uri));
-        Debug.Log($"Created SocketIOSocketConnector with uri {uri}");
+        socketManager = new SocketManager(new Uri(connectionSettings.Uri));
+        Debug.Log($"Created SocketIOSocketConnector with uri {connectionSettings.Uri}");
 
         socketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnect);
         socketManager.Socket.On(SocketIOEventTypes.Disconnect, OnDisconnect);

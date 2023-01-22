@@ -2,49 +2,38 @@ using System;
 using UnityEngine;
 using VContainer.Unity;
 
-public class SocketMessageTransporter : IMessageSender<string>, IMessageReceiver, IInitializable, IDisposable
+public class Messenger : IMessageSender<string>, IMessageReceiver, IInitializable, IDisposable
 {
     public event Action<string> OnMessageReceived;
     private ISocketConnector SocketConnector;
-    private IMessageSubmitter MessageSubmitter;
-    
+
     public void Initialize()
     {
         
     }
     
-    public SocketMessageTransporter(ISocketConnector socketConnector, IMessageSubmitter messageSubmitter)
+    public Messenger(ISocketConnector socketConnector)
     {
         SocketConnector = socketConnector;
         SocketConnector.OnMessageReceived += OnMessage;
         SocketConnector.Open();
-
-        MessageSubmitter = messageSubmitter;
-        MessageSubmitter.OnSubmit += OnMessageSubmitted;
     }
     
     public void Dispose()
     {
         SocketConnector.OnMessageReceived -= OnMessage;
         SocketConnector.Close();
-        
-        MessageSubmitter.OnSubmit -= OnMessageSubmitted;
-    }
-
-    private void OnMessageSubmitted(string message)
-    {
-        Send(message);
     }
 
     public void Send(string message)
     {
-        Debug.Log($"SocketMessageTransporter.Send: {message}");
+        Debug.Log($"Messenger.Send: {message}");
         SocketConnector.Emit(message);
     }
 
     private void OnMessage(string message)
     {
-        Debug.Log($"SocketMessageTransporter.OnMessage: {message}");
+        Debug.Log($"Messenger.OnMessage: {message}");
         OnMessageReceived?.Invoke(message);
     }
 }

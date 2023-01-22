@@ -14,7 +14,6 @@ public class UIMessagesFiller : MonoBehaviour
     private void Construct(IMessageReceiver messageReceiver)
     {
         MessageReceiver = messageReceiver;
-        Debug.Log($"UIMessagesFiller construct with " + MessageReceiver);
     }
 
     private void Awake()

@@ -1,13 +1,19 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using VContainer;
 
-public class InputFieldMessageSubmitter : MonoBehaviour, IMessageSubmitter
+public class InputFieldMessageSubmitter : MonoBehaviour
 {
     [SerializeField]
     private TMP_InputField InputField;
-    public event Action<string> OnSubmit;
+    private IMessageSender<string> MessageSender;
+
+    [Inject]
+    private void Construct(IMessageSender<string> messageSender)
+    {
+        MessageSender = messageSender;
+    }
 
     private void Awake()
     {
@@ -16,6 +22,6 @@ public class InputFieldMessageSubmitter : MonoBehaviour, IMessageSubmitter
 
     private void OnInputFieldSubmit(string input)
     {
-        OnSubmit?.Invoke(input);
+        MessageSender.Send(input);
     }
 }

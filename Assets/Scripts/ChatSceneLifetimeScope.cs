@@ -1,12 +1,16 @@
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 public class ChatSceneLifetimeScope : LifetimeScope
 {
+    [SerializeField]
+    private ConnectionSettings ConnectionSettings;
+    
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterComponentInHierarchy<InputFieldMessageSubmitter>().AsImplementedInterfaces();
-        builder.Register<ISocketConnector, SocketIOSocketConnector>(Lifetime.Scoped).WithParameter<string>(SocketUriType.Railway);
-        builder.Register<SocketMessageTransporter>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+        builder.RegisterInstance(ConnectionSettings);
+        builder.Register<ISocketConnector, SocketIOSocketConnector>(Lifetime.Scoped);
+        builder.Register<Messenger>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
     }
 }

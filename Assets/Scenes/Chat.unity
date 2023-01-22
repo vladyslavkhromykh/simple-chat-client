@@ -609,6 +609,8 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 104222120}
+  - {fileID: 2063864599}
+  ConnectionSettings: {fileID: 11400000, guid: 2a50910c077a947d3b67018759c913f0, type: 2}
 --- !u!4 &1047020977
 Transform:
   m_ObjectHideFlags: 0
