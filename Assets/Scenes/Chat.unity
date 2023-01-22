@@ -724,7 +724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00002991196}
+  m_AnchoredPosition: {x: 0, y: 0.000093214534}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &519420028
@@ -995,8 +995,8 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects:
-  - {fileID: 2063864599}
+  autoInjectGameObjects: []
+  IMessageSubmitter: {fileID: 2063864604}
 --- !u!4 &1047020977
 Transform:
   m_ObjectHideFlags: 0
