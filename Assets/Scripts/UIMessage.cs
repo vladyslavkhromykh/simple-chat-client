@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class MessageView : MonoBehaviour
+public class UIMessage : MonoBehaviour
 {
     public StringUnityEvent OnMessageUpdate;
     
-    public void UpdateView(string message)
+    public void UpdateUI(string message)
     {
         OnMessageUpdate?.Invoke(message);
     }
