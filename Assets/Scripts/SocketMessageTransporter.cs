@@ -20,7 +20,6 @@ public class SocketMessageTransporter : IMessageSender<string>, IMessageReceiver
         SocketConnector.Open();
 
         MessageSubmitter = messageSubmitter;
-        Debug.Log("MessageSubmitter:"+MessageSubmitter);
         MessageSubmitter.OnSubmit += OnMessageSubmitted;
     }
     
@@ -28,6 +27,8 @@ public class SocketMessageTransporter : IMessageSender<string>, IMessageReceiver
     {
         SocketConnector.OnMessageReceived -= OnMessage;
         SocketConnector.Close();
+        
+        MessageSubmitter.OnSubmit -= OnMessageSubmitted;
     }
 
     private void OnMessageSubmitted(string message)
