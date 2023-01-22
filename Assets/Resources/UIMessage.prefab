@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2482775583345601972}
   - component: {fileID: 2482775583345601973}
   m_Layer: 5
-  m_Name: MessageView
+  m_Name: UIMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

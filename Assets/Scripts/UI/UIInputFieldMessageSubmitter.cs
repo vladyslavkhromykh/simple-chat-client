@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
 
-public class InputFieldMessageSubmitter : MonoBehaviour
+public class UIInputFieldMessageSubmitter : MonoBehaviour
 {
     [SerializeField]
     private TMP_InputField InputField;
