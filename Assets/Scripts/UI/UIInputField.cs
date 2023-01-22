@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using VContainer;
 
-public class UIInputFieldMessageSubmitter : MonoBehaviour
+[RequireComponent(typeof(TMP_InputField))]
+public class UIInputField : MonoBehaviour
 {
-    [SerializeField]
     private TMP_InputField InputField;
     private IMessageSender<string> MessageSender;
-
+    
     [Inject]
     private void Construct(IMessageSender<string> messageSender)
     {
@@ -17,6 +17,7 @@ public class UIInputFieldMessageSubmitter : MonoBehaviour
 
     private void Awake()
     {
+        InputField = GetComponent<TMP_InputField>();
         InputField.onSubmit.AddListener(new UnityAction<string>(OnInputFieldSubmit));
     }
 
