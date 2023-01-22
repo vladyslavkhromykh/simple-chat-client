@@ -5,6 +5,7 @@ public class ChatSceneLifetimeScope : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.Register<SocketSocketMessageTransporter>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+        builder.Register<ISocketConnector, SocketIOSocketConnector>(Lifetime.Scoped).WithParameter<string>(SocketUriType.LocalHost);
+        builder.Register<SocketMessageTransporter>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
     }
 }

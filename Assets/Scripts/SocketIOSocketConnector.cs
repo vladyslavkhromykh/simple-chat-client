@@ -2,16 +2,16 @@ using System;
 using UnityEngine;
 using BestHTTP.SocketIO3;
 using BestHTTP.SocketIO3.Events;
-using VContainer;
 
-public class SocketConnector
+public class SocketIOSocketConnector : ISocketConnector
 {
+    public event Action<string> OnMessageReceived;
     private SocketManager socketManager;
-    public Action<string> OnMessageReceived;
 
-    public SocketConnector(string uri)
+    public SocketIOSocketConnector(string uri)
     {
         socketManager = new SocketManager(new Uri(uri));
+        Debug.Log($"Created SocketIOSocketConnector with uri {uri}");
 
         socketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnect);
         socketManager.Socket.On(SocketIOEventTypes.Disconnect, OnDisconnect);
@@ -20,14 +20,14 @@ public class SocketConnector
 
     public void Open()
     {
-        Debug.Log($"SocketConnector.Open");
+        Debug.Log($"SocketIOSocketConnector.Open");
         socketManager.Open();
     }
-
-    public void Disconnect()
+    
+    public void Close()
     {
-        Debug.Log($"SocketConnector.Disconnect");
-        socketManager.Socket.Disconnect();
+        Debug.Log($"SocketIOSocketConnector.Close");
+        socketManager.Close();
     }
     
     private void OnConnect(ConnectResponse response)
@@ -40,17 +40,11 @@ public class SocketConnector
         Debug.Log($"SocketConnector.OnDisconnected");
     }
 
-    public void Close()
-    {
-        Debug.Log($"SocketConnector.Close");
-        socketManager.Close();
-    }
-
     public void Emit(string message)
     {
         socketManager.Socket.Emit("message", message);
     }
-    
+
     private void OnMessage(string message)
     {
         OnMessageReceived?.Invoke(message);

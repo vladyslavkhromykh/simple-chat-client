@@ -1,19 +1,20 @@
 using System;
+using UnityEngine;
 using VContainer.Unity;
 
-public class SocketSocketMessageTransporter : IMessageSender<string>, IMessageReceiver, ISocketMessageTransporter, IInitializable, IDisposable
+public class SocketMessageTransporter : IMessageSender<string>, IMessageReceiver, IInitializable, IDisposable
 {
-    private SocketConnector SocketConnector;
     public event Action<string> OnMessageReceived;
-
+    private ISocketConnector SocketConnector;
+    
     public void Initialize()
     {
         
     }
     
-    public SocketSocketMessageTransporter()
+    public SocketMessageTransporter(ISocketConnector socketConnector)
     {
-        SocketConnector = new SocketConnector(SocketUriType.LocalHost);
+        SocketConnector = socketConnector;
         SocketConnector.OnMessageReceived += OnMessage;
         SocketConnector.Open();
     }
@@ -21,25 +22,18 @@ public class SocketSocketMessageTransporter : IMessageSender<string>, IMessageRe
     public void Dispose()
     {
         SocketConnector.OnMessageReceived -= OnMessage;
+        SocketConnector.Close();
     }
 
     public void Send(string message)
     {
+        Debug.Log($"SocketMessageTransporter.Send: {message}");
         SocketConnector.Emit(message);
     }
 
     private void OnMessage(string message)
     {
+        Debug.Log($"SocketMessageTransporter.OnMessage: {message}");
         OnMessageReceived?.Invoke(message);
-    }
-
-    public void Open()
-    {
-        SocketConnector.Open();
-    }
-
-    public void Close()
-    {
-        SocketConnector.Close();
     }
 }
