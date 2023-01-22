@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class UIMessage : MonoBehaviour
 {
-    public StringUnityEvent OnMessageUpdate;
+    [SerializeField]
+    private StringUnityEvent OnUpdated;
     
     public void UpdateUI(string message)
     {
-        OnMessageUpdate?.Invoke(message);
+        OnUpdated?.Invoke(message);
     }
 }
