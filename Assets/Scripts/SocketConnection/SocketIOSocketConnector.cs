@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using BestHTTP.SocketIO3;
 using BestHTTP.SocketIO3.Events;
@@ -6,28 +7,28 @@ using BestHTTP.SocketIO3.Events;
 public class SocketIOSocketConnector : ISocketConnector
 {
     public event Action<string> OnMessageReceived;
-    private SocketManager socketManager;
+    private SocketManager SocketManager;
 
     public SocketIOSocketConnector(ConnectionSettings connectionSettings)
     {
-        socketManager = new SocketManager(new Uri(connectionSettings.Uri));
+        SocketManager = new SocketManager(new Uri(connectionSettings.Uri));
         Debug.Log($"Created SocketIOSocketConnector with uri {connectionSettings.Uri}");
 
-        socketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnect);
-        socketManager.Socket.On(SocketIOEventTypes.Disconnect, OnDisconnect);
-        socketManager.Socket.On<string>("message", OnMessage);
+        SocketManager.Socket.On<ConnectResponse>(SocketIOEventTypes.Connect, OnConnect);
+        SocketManager.Socket.On(SocketIOEventTypes.Disconnect, OnDisconnect);
+        SocketManager.Socket.On<string>("message", OnMessage);
     }
 
     public void Open()
     {
         Debug.Log($"SocketIOSocketConnector.Open");
-        socketManager.Open();
+        SocketManager.Open();
     }
     
     public void Close()
     {
         Debug.Log($"SocketIOSocketConnector.Close");
-        socketManager.Close();
+        SocketManager.Close();
     }
     
     private void OnConnect(ConnectResponse response)
@@ -40,9 +41,9 @@ public class SocketIOSocketConnector : ISocketConnector
         Debug.Log($"SocketConnector.OnDisconnected");
     }
 
-    public void Emit(string message)
+    public void Emit(string eventName, params object[] args)
     {
-        socketManager.Socket.Emit("message", message);
+        SocketManager.Socket.Emit(eventName, args);
     }
 
     private void OnMessage(string message)
