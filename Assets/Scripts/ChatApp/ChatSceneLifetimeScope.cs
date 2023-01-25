@@ -11,6 +11,6 @@ public class ChatSceneLifetimeScope : LifetimeScope
     {
         builder.RegisterInstance(ConnectionSettings);
         builder.Register<ISocketConnector, SocketIOSocketConnector>(Lifetime.Scoped);
-        builder.Register<Messenger>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
+        builder.RegisterEntryPoint<Messenger>();
     }
 }

@@ -5,18 +5,13 @@ using Newtonsoft.Json;
 using UnityEngine;
 using VContainer.Unity;
 
-public class Messenger : IMessageSender<string>, IMessageReceiver, IMessageHistoryProvider, IInitializable, IDisposable
+public class Messenger : IMessageSender<string>, IMessageReceiver, IMessageHistoryProvider, IDisposable
 {
     public event Action<string> OnMessageReceived;
     private ISocketConnector SocketConnector;
     private Action<List<string>> OnGetMessageHistoryCallback;
     private ConnectionSettings ConnectionSettings;
 
-    public void Initialize()
-    {
-        
-    }
-    
     public Messenger(ISocketConnector socketConnector, ConnectionSettings connectionSettings)
     {
         ConnectionSettings = connectionSettings;
