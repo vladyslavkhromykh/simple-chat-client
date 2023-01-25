@@ -12,5 +12,6 @@ public class ChatSceneLifetimeScope : LifetimeScope
         builder.RegisterInstance(ConnectionSettings);
         builder.Register<ISocketConnector, SocketIOSocketConnector>(Lifetime.Scoped);
         builder.RegisterEntryPoint<Messenger>();
+        Debug.Log("ChatSceneLifetimeScope: registered dependencies and entry point");
     }
 }
