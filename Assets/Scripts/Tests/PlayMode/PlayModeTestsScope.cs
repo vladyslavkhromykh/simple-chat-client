@@ -10,7 +10,5 @@ public class PlayModeTestsScope : LifetimeScope
         builder.RegisterInstance(connectionSettings);
         builder.Register<ISocketConnector, SocketIOSocketConnector>(Lifetime.Scoped);
         builder.Register<Messenger>(Lifetime.Scoped).AsImplementedInterfaces();
-        
-        Debug.Log("PlayModeTestsScope: registered dependencies");
     }
 }

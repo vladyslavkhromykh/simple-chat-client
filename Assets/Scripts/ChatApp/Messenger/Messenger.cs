@@ -29,13 +29,11 @@ public class Messenger : IMessageSender<string>, IMessageReceiver, IMessageHisto
 
     public void Send(string message)
     {
-        Debug.Log($"Messenger.Send: {message}");
         SocketConnector.Emit("message", message);
     }
 
     private void OnMessage(string message)
     {
-        Debug.Log($"Messenger.OnMessage: {message}");
         OnMessageReceived?.Invoke(message);
     }
 
