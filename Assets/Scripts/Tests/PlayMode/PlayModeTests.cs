@@ -26,29 +26,50 @@ public class PlayModeTests
         MessageReceiver = messageReceiver;
         MessageHistoryProvider = messageHistoryProvider;
     }
+    
+    [UnityTest]
+    public IEnumerator TestThatSentMessageIsReceivedUnderHalfSecond()
+    {
+        string sentMessage = System.Guid.NewGuid().ToString();
+        string receivedMessage = string.Empty;
+        
+        float messageSendTime = 0.0f;
+        float messageReceiveTime = 0.0f;
+        
+        MessageReceiver.OnMessageReceived += message =>
+        {
+            receivedMessage = message;
+            messageReceiveTime = Time.time;
+        };
+        messageSendTime = Time.time;
+        MessageSender.Send(sentMessage);
+
+        yield return new WaitForSeconds(1.0f);
+        Assert.That(() => (messageReceiveTime-messageSendTime) < 0.1f);
+    }
 
     [UnityTest]
     public IEnumerator TestThatSentMessageIsEqualToReceivedMessage()
     {
-        string testMessage = System.Guid.NewGuid().ToString();
+        string sentMessage = System.Guid.NewGuid().ToString();
         string receivedMessage = string.Empty;
         
         MessageReceiver.OnMessageReceived += message =>
         {
             receivedMessage = message;
         };
-        MessageSender.Send(testMessage);
-
-        yield return new WaitForSeconds(1.0f);
+        MessageSender.Send(sentMessage);
         
-        Assert.AreEqual(testMessage, receivedMessage);
+        yield return new WaitForSeconds(1.0f);
+
+        Assert.AreEqual(sentMessage, receivedMessage);
     }
 
     [UnityTest]
     public IEnumerator TestThatHistoryNotEmptyAfterOneSentMessage()
     {
-        string testMessage = System.Guid.NewGuid().ToString();
-        MessageSender.Send(testMessage);
+        string sentMessage = System.Guid.NewGuid().ToString();
+        MessageSender.Send(sentMessage);
 
         yield return new WaitForSeconds(1.0f);
 

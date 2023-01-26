@@ -46,7 +46,13 @@ public class Messenger : IMessageSender<string>, IMessageReceiver, IMessageHisto
 
     private void OnGetMessageHistoryResponse(HTTPRequest request, HTTPResponse response)
     {
-        List<string> history = JsonConvert.DeserializeObject<List<string>>(response.DataAsText);
+        List<string> history = new List<string>();
+
+        if (response is { IsSuccess: true} )
+        {
+            history = JsonConvert.DeserializeObject<List<string>>(response.DataAsText);
+        }
+
         OnGetMessageHistoryCallback?.Invoke(history);
     }
 }
