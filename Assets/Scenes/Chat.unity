@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 104222123}
   - component: {fileID: 104222122}
   m_Layer: 5
-  m_Name: UIMessagesFiller
+  m_Name: MessagesView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd1e5eb219f4466eb3d7a21d2caf37e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIMessagePrefab: {fileID: 2482775583345601973, guid: f395b03fd86e9489dbc9ec7eac341f97, type: 3}
-  UIMesssagesParent: {fileID: 510313449}
+  MessageViewPrefab: {fileID: 2482775583345601973, guid: f395b03fd86e9489dbc9ec7eac341f97, type: 3}
+  MessagesParent: {fileID: 510313449}
 --- !u!1 &435780705
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,7 +692,7 @@ GameObject:
   - component: {fileID: 2063864602}
   - component: {fileID: 2063864601}
   m_Layer: 5
-  m_Name: MessageInputSubmitterer
+  m_Name: KeyboardInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -880,7 +880,7 @@ GameObject:
   - component: {fileID: 2105883768}
   - component: {fileID: 2105883767}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Chat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

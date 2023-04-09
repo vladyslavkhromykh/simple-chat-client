@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using BestHTTP;
 using Newtonsoft.Json;
-using UnityEngine;
-using VContainer.Unity;
 
 public class Messenger : IMessageSender<string>, IMessageReceiver, IMessageHistoryProvider, IDisposable
 {

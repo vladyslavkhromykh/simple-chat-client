@@ -1,19 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
-public class UIMessagesFiller : MonoBehaviour
+public class MessagesView : MonoBehaviour
 {
-    [SerializeField]
-    private UIMessage UIMessagePrefab;
-    [SerializeField]
-    private RectTransform UIMesssagesParent;
     private IMessageReceiver MessageReceiver;
     private IMessageHistoryProvider MessageHistoryProvider;
+    
+    [SerializeField]
+    private MesageView MessageViewPrefab;
+    [SerializeField]
+    private RectTransform MessagesParent;
 
     [Inject]
     private void Construct(IMessageReceiver messageReceiver, IMessageHistoryProvider messageHistoryProvider)
@@ -27,34 +24,33 @@ public class UIMessagesFiller : MonoBehaviour
         MessageReceiver.OnMessageReceived += OnMessageReceived;
     }
     
-    private void OnDestroy()
-    {
-        MessageReceiver.OnMessageReceived -= OnMessageReceived;
-    }
-
     private void Start()
     {
         MessageHistoryProvider.GetMessageHistory(OnGetMessageHistory);
     }
-
-    private void InsertMessage(string message)
+    
+    private void OnDestroy()
     {
-        UIMessage uiMessage = Instantiate(UIMessagePrefab).GetComponent<UIMessage>();
-        uiMessage.UpdateUI(message);
-        uiMessage.transform.SetParent(UIMesssagesParent);
+        MessageReceiver.OnMessageReceived -= OnMessageReceived;
+    }
+    
+    private void PushMessage(string message)
+    {
+        MesageView messageView = Instantiate(MessageViewPrefab, MessagesParent);
+        messageView.UpdateUI(message);
     }
 
     private void OnGetMessageHistory(List<string> history)
     {
         foreach (string message in history)
         {
-            InsertMessage(message);
+            PushMessage(message);
         }
     }
 
 
     private void OnMessageReceived(string message)
     {
-        InsertMessage(message);
+        PushMessage(message);
     }
 }

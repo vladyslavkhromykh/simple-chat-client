@@ -2,6 +2,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
+
 public class PlayModeTestsScope : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
