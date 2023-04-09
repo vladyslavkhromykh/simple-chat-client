@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
-public class MessagesView : MonoBehaviour
+public class ConversationView : MonoBehaviour
 {
     private IMessageReceiver MessageReceiver;
     private IMessageHistoryProvider MessageHistoryProvider;
     
     [SerializeField]
-    private MesageView MessageViewPrefab;
+    private ConversationMessageView MessageViewPrefab;
     [SerializeField]
     private RectTransform MessagesParent;
 
@@ -36,7 +36,7 @@ public class MessagesView : MonoBehaviour
     
     private void PushMessage(string message)
     {
-        MesageView messageView = Instantiate(MessageViewPrefab, MessagesParent);
+        ConversationMessageView messageView = Instantiate(MessageViewPrefab, MessagesParent);
         messageView.UpdateUI(message);
     }
 
