@@ -2,7 +2,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class ChatLifetimeScope : LifetimeScope
+public class ChatScope : LifetimeScope
 {
     [SerializeField]
     private ConnectionSettings ConnectionSettings;
