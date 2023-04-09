@@ -1,56 +1,21 @@
-using System.Collections.Generic;
 using UnityEngine;
-using VContainer;
+using UnityEngine.UI;
 
-public class ConversationView : MonoBehaviour
+public class ConversationView : MonoBehaviour, IConversationView
 {
-    private IMessageReceiver MessageReceiver;
-    private IMessageHistoryProvider MessageHistoryProvider;
-    
-    [SerializeField]
-    private ConversationMessageView MessageViewPrefab;
-    [SerializeField]
-    private RectTransform MessagesParent;
+    [SerializeField] private ScrollRect ScrollRect;
+    [SerializeField] private MessageView MessageViewPrefab;
+    [SerializeField] private RectTransform MessagesParent;
 
-    [Inject]
-    private void Construct(IMessageReceiver messageReceiver, IMessageHistoryProvider messageHistoryProvider)
+    public void AddMessage(string message)
     {
-        MessageReceiver = messageReceiver;
-        MessageHistoryProvider = messageHistoryProvider;
+        Instantiate(MessageViewPrefab, MessagesParent).UpdateUI(message);
+        ScrollToBottom();
     }
 
-    private void Awake()
+    public void ScrollToBottom()
     {
-        MessageReceiver.OnMessageReceived += OnMessageReceived;
-    }
-    
-    private void Start()
-    {
-        MessageHistoryProvider.GetMessageHistory(OnGetMessageHistory);
-    }
-    
-    private void OnDestroy()
-    {
-        MessageReceiver.OnMessageReceived -= OnMessageReceived;
-    }
-    
-    private void PushMessage(string message)
-    {
-        ConversationMessageView messageView = Instantiate(MessageViewPrefab, MessagesParent);
-        messageView.UpdateUI(message);
-    }
-
-    private void OnGetMessageHistory(List<string> history)
-    {
-        foreach (string message in history)
-        {
-            PushMessage(message);
-        }
-    }
-
-
-    private void OnMessageReceived(string message)
-    {
-        PushMessage(message);
+        Canvas.ForceUpdateCanvases();
+        ScrollRect.verticalNormalizedPosition = 0.0f;
     }
 }

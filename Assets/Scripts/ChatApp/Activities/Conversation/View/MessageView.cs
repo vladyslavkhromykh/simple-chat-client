@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConversationMessageView : MonoBehaviour
+public class MessageView : MonoBehaviour
 {
     [SerializeField]
     private StringUnityEvent OnUpdated;

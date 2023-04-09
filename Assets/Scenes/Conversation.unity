@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd1e5eb219f4466eb3d7a21d2caf37e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScrollRect: {fileID: 104222122}
   MessageViewPrefab: {fileID: 2482775583345601973, guid: f395b03fd86e9489dbc9ec7eac341f97, type: 3}
   MessagesParent: {fileID: 510313449}
 --- !u!1 &435780705
