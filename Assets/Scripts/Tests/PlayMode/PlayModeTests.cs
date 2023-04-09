@@ -14,8 +14,8 @@ public class PlayModeTests
     [UnitySetUp]
     public IEnumerator SetUp()
     {
-        PlayModeTestsScope scope = new GameObject("PlayModeTestsScope").AddComponent<PlayModeTestsScope>();
-        scope.Container.Inject(this);
+        PlayModeTestsContext context = new GameObject(nameof(PlayModeTestsContext)).AddComponent<PlayModeTestsContext>();
+        context.Container.Inject(this);
         yield return null;
     }
 
