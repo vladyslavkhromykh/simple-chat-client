@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BestHTTP;
 using Newtonsoft.Json;
 
-public class Messenger : IMessageSender<string>, IMessageReceiver, IMessageHistoryProvider, IDisposable
+public class Messenger : IMessenger, IDisposable
 {
     public event Action<string> OnMessageReceived;
     private ISocketConnector SocketConnector;

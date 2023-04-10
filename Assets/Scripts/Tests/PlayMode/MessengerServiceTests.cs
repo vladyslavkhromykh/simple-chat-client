@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using VContainer;
 
-public class PlayModeTests
+public class MessengerServiceTests
 {
     private IMessageSender<string> MessageSender;
     private IMessageReceiver MessageReceiver;
@@ -14,7 +14,7 @@ public class PlayModeTests
     [UnitySetUp]
     public IEnumerator SetUp()
     {
-        PlayModeTestsContext context = new GameObject(nameof(PlayModeTestsContext)).AddComponent<PlayModeTestsContext>();
+        MessengerServiceTestsContext context = new GameObject(nameof(MessengerServiceTestsContext)).AddComponent<MessengerServiceTestsContext>();
         context.Container.Inject(this);
         yield return null;
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(TMP_InputField))]
-public class KeyboardInput : MonoBehaviour, IUserInput
+public class ConversationInput : MonoBehaviour, IConversationInput
 {
     private TMP_InputField InputField;
     private IMessageSender<string> MessageSender;

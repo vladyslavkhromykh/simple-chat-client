@@ -1,6 +1,6 @@
 using System;
 
-public interface IUserInput
+public interface IConversationInput
 {
     event Action<string> OnSubmitMessage;
 }

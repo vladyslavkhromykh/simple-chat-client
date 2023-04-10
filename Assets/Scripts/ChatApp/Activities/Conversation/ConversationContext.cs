@@ -8,12 +8,11 @@ public class ConversationContext : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterComponentInHierarchy<KeyboardInput>().As<IUserInput>();
-        builder.RegisterComponentInHierarchy<ConversationView>().AsImplementedInterfaces();
         builder.RegisterInstance(ConnectionSettings);
         builder.Register<ISocketConnector, SocketIOSocketConnector>(Lifetime.Scoped);
+        builder.RegisterComponentInHierarchy<ConversationInput>().As<IConversationInput>();
+        builder.RegisterComponentInHierarchy< ConversationView>().As<IConversationView>();
         builder.RegisterEntryPoint<Messenger>(Lifetime.Scoped);
-        builder.RegisterEntryPoint<UserInputReceiver>(Lifetime.Scoped);
-        builder.RegisterEntryPoint<ConversationUpdater>(Lifetime.Scoped);
+        builder.RegisterEntryPoint<ConversationPresenter>(Lifetime.Scoped);
     }
 }

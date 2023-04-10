@@ -2,7 +2,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-public class PlayModeTestsContext : LifetimeScope
+public class MessengerServiceTestsContext : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
