@@ -2,4 +2,4 @@
 #### launch 'Chat.scene' to run app
 
 
-![volcano gif](https://github.com/vladyslavkhromykh/volcano/raw/main/.github/chat-demo.gif)
+![chat demo gif](https://github.com/vladyslavkhromykh/simple-chat-client/raw/main/.github/chat-demo.gif)
